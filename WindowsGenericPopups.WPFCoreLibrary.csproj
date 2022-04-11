@@ -1,0 +1,22 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
+
+	<PropertyGroup>
+		<TargetFramework>net6.0-windows</TargetFramework>
+		<UseWPF>true</UseWPF>
+		<Nullable>enable</Nullable>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Version>1.0.1</Version>
+	</PropertyGroup>
+
+  <ItemGroup>
+    <SupportedPlatform Include="browser" />
+  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="Microsoft.AspNetCore.Components.WebView.Wpf" Version="6.0.200-preview.13.2865" />
+		<PackageReference Include="WindowsGenericPopups.BlazorCoreLibrary" Version="1.0.1" />
+		<PackageReference Include="WindowsGenericPopups.CoreLibrary" Version="1.0.1" />
+		<PackageReference Include="WPFStartupLibrary" Version="3.0.1" />
+		<PackageReference Include="WindowsKeyboardCapture" Version="3.0.1" />
+	</ItemGroup>
+
+</Project>
