@@ -12,7 +12,8 @@ public static class SimpleStartUp
         {
             return _provides!;
         }
-        _services.AddBlazorWebView();
+        _services.AddWpfBlazorWebView(); //this is to make the released version to work.
+        _services.AddBlazorWebViewDeveloperTools();
         _services.RegisterWPFServices();
         _services.RegisterBlazorBeginningClasses(); //forgot this too.
         _services.AddSingleton<IOpenSimplePopup, SimpleWPFPopupClass>(); //i think.
