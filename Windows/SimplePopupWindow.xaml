@@ -6,8 +6,9 @@
         xmlns:local="clr-namespace:WindowsGenericPopups.WPFCoreLibrary.Windows"
         xmlns:blazor="clr-namespace:Microsoft.AspNetCore.Components.WebView.Wpf;assembly=Microsoft.AspNetCore.Components.WebView.Wpf"
         mc:Ignorable="d"
-        Title="Simple Popup" Height="200" Width="600" Topmost="true" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" WindowStyle="None">
+        Title="Simple Popup" Height="250" Width="700" Topmost="true" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" WindowStyle="None">
     <Grid>
+        
         <blazor:BlazorWebView HostPage="wwwroot/Index.html" Services="{StaticResource services}">
             <blazor:BlazorWebView.RootComponents>
                 <blazor:RootComponent Selector="#app" ComponentType="{x:Type local:SimpleStartBlazor}" />
