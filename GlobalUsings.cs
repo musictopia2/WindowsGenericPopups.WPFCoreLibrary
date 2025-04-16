@@ -7,3 +7,5 @@ global using WPFStartupLibrary;
 global using System.Windows;
 global using CommonBasicLibraries.BasicDataSettingsAndProcesses;
 global using WindowsKeyboardCapture;
+global using System.Windows.Media;
+global using System.Windows.Controls;

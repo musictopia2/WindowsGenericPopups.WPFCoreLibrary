@@ -1,13 +1,8 @@
 ﻿namespace WindowsGenericPopups.WPFCoreLibrary.Popups;
-public class SimpleWPFPopupClass : IOpenSimplePopup
+public class SimpleWPFPopupClass(IAfterCloseSimplePopup afterClose) : IOpenSimplePopup
 {
     private KeyboardHook? _keys;
-    public SimpleWPFPopupClass(IAfterCloseSimplePopup afterClose)
-    {
-        _afterClose = afterClose;
-    }
     private EnumKey _closeKey;
-    private readonly IAfterCloseSimplePopup _afterClose;
     private SimplePopupWindow? _window;
     private bool _needsKey;
     void IOpenSimplePopup.OpenPopup(EnumKey closeKey, string message)
@@ -35,9 +30,16 @@ public class SimpleWPFPopupClass : IOpenSimplePopup
             //this means you entered the key that is supposed to close it.
             _window.Close();
             _window = null;
+            if (_keys is not null)
+            {
+                _keys.KeyUp -= Keys_KeyUp;
+                _keys.Dispose();
+                _keys = null;
+            }
             _needsKey = false;
-            _afterClose.FinishProcess();
+            afterClose.FinishProcess();
             return;
         }
     }
+    
 }

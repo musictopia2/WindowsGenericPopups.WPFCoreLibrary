@@ -13,8 +13,8 @@
     <SupportedPlatform Include="browser" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Components.WebView.Wpf" Version="9.0.10" />
-    <PackageReference Include="WindowsGenericPopups.CoreLibrary" Version="9.0.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebView.Wpf" Version="9.0.60" />
+    <PackageReference Include="WindowsGenericPopups.CoreLibrary" Version="9.0.3" />
     <PackageReference Include="WPFStartupLibrary" Version="9.0.1" />
     <PackageReference Include="WindowsKeyboardCapture" Version="9.0.1" />
   </ItemGroup>
