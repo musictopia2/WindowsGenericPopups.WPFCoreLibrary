@@ -15,6 +15,7 @@ public class TimerWPFPopupClass : IOpenTimedPopup
         }
         else
         {
+            SimplePopupComponent.Message = message;
             _window = new SimplePopupWindow();
         }
         _window.Show();
