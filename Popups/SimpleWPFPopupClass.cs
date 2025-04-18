@@ -5,7 +5,8 @@ public class SimpleWPFPopupClass(IAfterCloseSimplePopup afterClose) : IOpenSimpl
     private EnumKey _closeKey;
     private SimplePopupWindow? _window;
     private bool _needsKey;
-    void IOpenSimplePopup.OpenPopup(EnumKey closeKey, string message)
+    private CancellationTokenRegistration _registration;
+    void IOpenSimplePopup.OpenPopup(EnumKey closeKey, string message, CancellationToken token)
     {
         _closeKey = closeKey;
         if (_keys is null)
@@ -18,28 +19,51 @@ public class SimpleWPFPopupClass(IAfterCloseSimplePopup afterClose) : IOpenSimpl
         //do the work required for this.
         _window = new();
         _window.Show();
+        // Watch for cancellation
+        if (token.CanBeCanceled)
+        {
+            _registration = token.Register(() =>
+            {
+                Application.Current.Dispatcher.Invoke(() =>
+                {
+                    ClosePopup(); // closes the popup if cancellation is requested
+                });
+            });
+        }
     }
-    private void Keys_KeyUp(EnumKey key)
+    private void CloseRegistration()
+    {
+        if (_registration.Token.CanBeCanceled)
+        {
+            _registration.Dispose();
+        }
+    }
+    private void ClosePopup()
     {
         if (_window is null || _needsKey == false)
         {
+            CloseRegistration();
             return;
         }
+        _window.Close();
+        _window = null;
+        if (_keys is not null)
+        {
+            _keys.KeyUp -= Keys_KeyUp;
+            _keys.Dispose();
+            _keys = null;
+        }
+        _needsKey = false;
+        CloseRegistration();
+        afterClose.FinishProcess();
+        return;
+    }
+    private void Keys_KeyUp(EnumKey key)
+    {
         if (key == _closeKey)
         {
             //this means you entered the key that is supposed to close it.
-            _window.Close();
-            _window = null;
-            if (_keys is not null)
-            {
-                _keys.KeyUp -= Keys_KeyUp;
-                _keys.Dispose();
-                _keys = null;
-            }
-            _needsKey = false;
-            afterClose.FinishProcess();
-            return;
+            ClosePopup();
         }
     }
-    
 }

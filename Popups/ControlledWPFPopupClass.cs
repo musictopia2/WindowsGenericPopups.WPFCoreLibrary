@@ -15,9 +15,12 @@ public class ControlledWPFPopupClass : IOpenControlledPopup
             _window = new SimplePopupWindow();
         }
 
+        _window.ShowActivated = true;
         _window.Show();
 
-        // Return an instance of a controlled popup so it can be closed later.
+        // Force the dispatcher to process UI rendering
+        _window.Dispatcher.Invoke(() => { }, System.Windows.Threading.DispatcherPriority.ApplicationIdle);
+
         _popupInstance = new ControlledPopupInstance(_window);
         return _popupInstance;
     }
