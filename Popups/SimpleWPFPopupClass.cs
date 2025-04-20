@@ -6,9 +6,11 @@ public class SimpleWPFPopupClass(IAfterCloseSimplePopup afterClose) : IOpenSimpl
     private SimplePopupWindow? _window;
     private bool _needsKey;
     private CancellationTokenRegistration _registration;
-    void IOpenSimplePopup.OpenPopup(EnumKey closeKey, string message, CancellationToken token)
+    private Action? _onPopupClosed;
+    void IOpenSimplePopup.OpenPopup(EnumKey closeKey, string message, CancellationToken token, Action? onPopupClosed)
     {
         _closeKey = closeKey;
+        _onPopupClosed = onPopupClosed;
         if (_keys is null)
         {
             _keys = new();
@@ -55,6 +57,7 @@ public class SimpleWPFPopupClass(IAfterCloseSimplePopup afterClose) : IOpenSimpl
         }
         _needsKey = false;
         CloseRegistration();
+        _onPopupClosed?.Invoke();
         afterClose.FinishProcess();
         return;
     }
