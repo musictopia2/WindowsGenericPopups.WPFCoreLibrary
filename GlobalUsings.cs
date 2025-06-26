@@ -9,3 +9,4 @@ global using CommonBasicLibraries.BasicDataSettingsAndProcesses;
 global using WindowsKeyboardCapture;
 global using System.Windows.Media;
 global using System.Windows.Controls;
+global using CommonBasicLibraries.CollectionClasses;
